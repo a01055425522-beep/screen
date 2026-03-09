@@ -198,18 +198,18 @@
   <tbody>
     <tr>
       <td>기초데이터수집 및 화면설계</td>
-      <td></td>
-      <td></td>
+      <td>screen_화면설계.pdf</td>
+      <td>주요 페이지의 화면 구성, 사용자 흐름 등 와이어프레임 기반 설계 자료</td>
     </tr>
     <tr>
       <td>디자인</td>
-      <td></td>
-      <td></td>
+      <td>screen_디자인스케치.pdf</td>
+      <td>Figma로 작업한 디자인 시안. 색상, 폰트, UI 요소 등 자료</td>
     </tr>
     <tr>
       <td>발표자료</td>
-      <td></td>
-      <td></td>
+      <td>screen_A조 발표자료.pdf</td>
+      <td>팀 프로젝트 발표용 슬라이드 자료</td>
     </tr>
   </tbody>
 </table>
