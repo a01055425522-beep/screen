@@ -64,10 +64,10 @@ let searchFun = async function (keyword) {
     let movieData = await res.json();
 
     // TV 검색
-    let res2 = await fetch(`https://api.themoviedb.org/3/search/tv?query=${encodeURIComponent(keyword)}&api_key=be70ce351ebf9cdf3c901d28de3db6a3&language=ko-KRwatch_region=KR`);
+    let res2 = await fetch(`https://api.themoviedb.org/3/search/tv?query=${encodeURIComponent(keyword)}&api_key=be70ce351ebf9cdf3c901d28de3db6a3&language=ko-KR&watch_region=KR`);
     let tvData = await res2.json();
 
-    let res3 = await fetch(`https://api.themoviedb.org/3/search/person?api_key=be70ce351ebf9cdf3c901d28de3db6a3&query=${encodeURIComponent(keyword)}&language=ko-KRwatch_region=KR`);
+    let res3 = await fetch(`https://api.themoviedb.org/3/search/person?api_key=be70ce351ebf9cdf3c901d28de3db6a3&query=${encodeURIComponent(keyword)}&language=ko-KR&watch_region=KR`);
     let personData = await res3.json();
 
     datasets = [
@@ -77,16 +77,16 @@ let searchFun = async function (keyword) {
     ];
 
 
-    let a=[],b=[];
-    if(personData.results.length){
-        personData.results[0].known_for.forEach(function(값){
-            값.media_type == 'movie' ?  a.push(값) : b.push(값);
+    let a = [], b = [];
+    if (personData.results.length) {
+        personData.results[0].known_for.forEach(function (값) {
+            값.media_type == 'movie' ? a.push(값) : b.push(값);
         })
 
         datasets[0].data = [...movieData.results, ...a];
         datasets[1].data = [...tvData.results, ...b];
     }
-    
+
 
 
     datasets.sort(function (a, b) {
@@ -282,7 +282,7 @@ let searchEvent = function () {
     const el_input = document.querySelector('.header-search-box input');
 
     el_form.addEventListener('submit', function (e) {
-        e.preventDefault(); // 검색하면 기본으로 동작되는 '새로고침'을 막음 (이거 안하면 검색하면 새로고침되서 데이터날라감)
+        e.preventDefault(); // 검색하면 기본으로 동작되는 '새로고침'을 막음
         searchFun(el_input.value.trim());
         el_searchTitle.innerText = `"${el_input.value}" 검색결과`;
     });
@@ -358,10 +358,14 @@ searchEvent();
 // 💡 메인에서 검색하면 검색페이지로 이동해서 바로 보이는 화면
 let params = new URLSearchParams(document.location.search);
 let keyword = params.get("keyword");
-searchFun(keyword);
-el_searchTitle.innerText = `"${keyword}" 검색결과`;
 
-
+if (!keyword) {
+    $('form').preventDefault();
+    alert('검색어를 입력해주세요.');
+} else {
+    searchFun(keyword);
+    el_searchTitle.innerText = `"${keyword}" 검색결과`;
+}
 
 // 검색리스트에 작품 클릭시 팝업 띄우기
 let etc = '';
